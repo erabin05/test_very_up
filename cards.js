@@ -7,8 +7,9 @@ window.onload = function(){
     elBoard.innerHTML = generateElCards(cards);
 
     const elCards = document.getElementsByClassName('card');
-    cardsAppearance(elCards);
-
+    setTimeout(()=>{
+        cardsAppearance(elCards);
+    },300)
 };
 
 const generateElCards = (cards) => cards.reduce((acc, card, i) => acc + `<section class='card' ${cardStyle(cards, i)}></section>`, "");
