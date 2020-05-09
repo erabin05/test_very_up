@@ -10,6 +10,9 @@ window.onload = function(){
     setTimeout(()=>{
         cardsAppearance(elCards);
     },300)
+
+    const elCardsContent = document.getElementsByClassName('card');
+    cardsOnClick(elCardsContent)
 };
 
 const generateElCards = (cards) => cards.reduce((acc, currentCard, i) => `${acc}${card(cards, currentCard, i)}`, "");
@@ -40,7 +43,8 @@ const cardPositionHorizontaly = (indexCard) => `left:${cardWitdhInPx * indexCard
 
 const cardDepth = (indexCard) => `z-index:${indexCard%2 === 0 ? 100 : 200}`;
 
-// Animaton
+
+// Animations
 const cardsAppearance = (elCards, i = 0) => {
     if (elCards.length > i) {
         setTimeout(() => {
@@ -53,6 +57,21 @@ const cardsAppearance = (elCards, i = 0) => {
 };
 
 const cardPositionVerticaly = (indexCard) => indexCard%2 === 0 ? randomNumberBetween(60, 120) : randomNumberBetween(0, 10)
+
+const cardsOnClick = (elCards) => {
+    for(let i=0; i<elCards.length; i++) {
+        elCards[i].addEventListener('click', () => {
+            if (elCards[i].style.transform !== 'rotateY(180deg)') {
+                for(let y=0; y<elCards.length; y++) {
+                    elCards[y].style.transform = 'rotateY(0deg)'
+                }
+                elCards[i].style.transform = 'rotateY(180deg)'
+            } else {
+                elCards[i].style.transform = 'rotateY(0deg)'
+            }
+        })
+    }
+}
 
 
 // Usefull
