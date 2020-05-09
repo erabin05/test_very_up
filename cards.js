@@ -6,14 +6,25 @@ window.onload = function(){
     elBoard.style.width= `${cards.length * cardWitdhInPx}px`
     elBoard.innerHTML = generateElCards(cards);
 
-    const elCards = document.getElementsByClassName('card');
+    const elCards = document.getElementsByClassName('card-container');
     setTimeout(()=>{
         cardsAppearance(elCards);
     },300)
 };
 
-const generateElCards = (cards) => cards.reduce((acc, card, i) => acc + `<section class='card' ${cardStyle(cards, i)}></section>`, "");
+const generateElCards = (cards) => cards.reduce((acc, currentCard, i) => `${acc}${card(cards, currentCard, i)}`, "");
 
+const card = (cards, currentCard, i) => `
+    <div class='card-container' ${cardStyle(cards, i)}>
+        <section class='card'>
+            ${cardFront(currentCard)}
+            ${cardBack(currentCard)}
+        </section>
+    </div>`;
+const cardFront = (currentCard) => `<figure></figure>`;
+const cardBack = (currentCard) => `<article><p>${currentCard.text}</p></article>`;
+
+// Style
 const cardStyle = (cards, i) => `style="${cardRotation(cards, i)};${cardPositionHorizontaly(i)};${cardDepth(i)}"`;
 
 const cardRotation = (cards, indexCard) => {
@@ -29,6 +40,7 @@ const cardPositionHorizontaly = (indexCard) => `left:${cardWitdhInPx * indexCard
 
 const cardDepth = (indexCard) => `z-index:${indexCard%2 === 0 ? 100 : 200}`;
 
+// Animaton
 const cardsAppearance = (elCards, i = 0) => {
     if (elCards.length > i) {
         setTimeout(() => {
@@ -42,4 +54,6 @@ const cardsAppearance = (elCards, i = 0) => {
 
 const cardPositionVerticaly = (indexCard) => indexCard%2 === 0 ? randomNumberBetween(60, 120) : randomNumberBetween(0, 10)
 
+
+// Usefull
 const randomNumberBetween = (min, max) => Math.floor(Math.random() * (max-min)+1) + min;
