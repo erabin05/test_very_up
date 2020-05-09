@@ -5,11 +5,15 @@ window.onload = function(){
     const elBoard = document.getElementById("board");
     elBoard.style.width= `${cards.length * cardWitdhInPx}px`
     elBoard.innerHTML = generateElCards(cards);
+
+    const elCards = document.getElementsByClassName('card');
+    cardsAppearance(elCards);
+
 };
 
 const generateElCards = (cards) => cards.reduce((acc, card, i) => acc + `<section class='card' ${cardStyle(cards, i)}></section>`, "");
 
-const cardStyle = (cards, i) => `style="${cardRotation(cards, i)};${cardPositionHorizontaly(i)};${cardPositionVerticaly(i)};${cardDepth(i)}"`;
+const cardStyle = (cards, i) => `style="${cardRotation(cards, i)};${cardPositionHorizontaly(i)};${cardDepth(i)}"`;
 
 const cardRotation = (cards, indexCard) => {
     const lengthIsOdd = cards.length%2 === 0;
@@ -22,10 +26,19 @@ const cardRotation = (cards, indexCard) => {
 
 const cardPositionHorizontaly = (indexCard) => `left:${cardWitdhInPx * indexCard}px`;
 
-const cardPositionVerticaly = (indexCard) => {
-    return `top:${(indexCard%2 === 0 ? randomNumberBetween(60, 120) : randomNumberBetween(0, 10))}px`
-}
-
 const cardDepth = (indexCard) => `z-index:${indexCard%2 === 0 ? 100 : 200}`;
+
+const cardsAppearance = (elCards, i = 0) => {
+    if (elCards.length > i) {
+        setTimeout(() => {
+            elCards[i].style.top = cardPositionVerticaly(i);
+            elCards[i].style.opacity = 1;
+
+                cardsAppearance(elCards, i + 1);  
+        }, randomNumberBetween(100, 300));
+    };
+};
+
+const cardPositionVerticaly = (indexCard) => indexCard%2 === 0 ? randomNumberBetween(60, 120) : randomNumberBetween(0, 10)
 
 const randomNumberBetween = (min, max) => Math.floor(Math.random() * (max-min)+1) + min;

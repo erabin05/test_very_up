@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background-color : #F7F4F0;
+    overflow-y: hidden;
 }
 
 * {
@@ -45,7 +46,9 @@ main {
     border-radius: 12px;
     position : absolute;
     background-color: #FFFFFF;
-    transition: box-shadow 0.5s;
+    transition: box-shadow 0.5s, top 1s, opacity 1.5s;
+    top : 100vh;
+    opacity: 0;
 }
 
 .card:hover {
