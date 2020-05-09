@@ -8,6 +8,10 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+@keyframes title-appearance {
+    0%, 50% { opacity: 0; }
+    100% { opacity: 1; }
+}
 header {
     height: 30vh;
     display: flex;
@@ -22,6 +26,7 @@ h1 {
     font-size: 36px;
     line-height: 44px;
     margin: 0;
+    animation: title-appearance ease-in 3.5s;
 }
 h2 {
     font-weight: normal;
@@ -29,6 +34,7 @@ h2 {
     text-transform: uppercase;
     line-height: 13px;
     margin: 0;
+    animation: title-appearance ease-in 4s;
 }
 
 main {
