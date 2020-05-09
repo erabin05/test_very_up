@@ -14,7 +14,7 @@ const cards = [
     {
         "text": "yoyoyo",
         "img": ""
-    }
+    }   
 ]
 
 const cardWitdhInPx = 237;
