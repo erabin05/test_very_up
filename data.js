@@ -16,3 +16,5 @@ const cards = [
         "img": ""
     }
 ]
+
+const cardWitdhInPx = 237;
