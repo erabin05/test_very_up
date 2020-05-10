@@ -6,20 +6,15 @@ window.onload = function(){
     elBoard.style.width= `${cards.length * cardWitdhInPx}px`;
     elBoard.innerHTML = generateElCards(cards);
 
-    const elCardsContainer = document.getElementsByClassName('card-container');
+    const elCardsContainers = document.getElementsByClassName('card-container');
     setTimeout(()=>{
-        cardsAppearance(elCardsContainer, randomOrderIndexs(elCardsContainer));
+        cardsAppearance(elCardsContainers, randomOrderIndexs(elCardsContainers));
     },300)
 
-    const elCardsContent = document.getElementsByClassName('card');
-    cardsOnClick(elCardsContent, elCardsContainer);
+    const elCardsContents = document.getElementsByClassName('card');
+    cardsOnClick(elCardsContents, elCardsContainers);
 
-    window.addEventListener('mousemove', ()=> {
-        console.log(event.clientX)
-        console.log(event.clientY)
-    })
-
-    
+    parallaxe(elCardsContainers)
 };
 
 const generateElCards = (cards) => cards.reduce((acc, currentCard, i) => `${acc}${card(cards, currentCard, i)}`, "");
@@ -73,23 +68,52 @@ const cardsAppearance = (elCards, randomOrderIndexs, i = 0) => {
 
 const cardPositionVerticaly = (indexCard) => indexCard%2 === 0 ? randomNumberBetween(60, 120) : randomNumberBetween(0, 10);
 
-const cardsOnClick = (elCardsContent, elCardsContainer) => {
-    for(let i=0; i<elCardsContent.length; i++) {
-        elCardsContent[i].addEventListener('click', () => {
-            if (elCardsContent[i].style.transform !== 'rotateY(180deg)') {
-                for(let y=0; y<elCardsContent.length; y++) {
-                    elCardsContent[y].style.transform = 'rotateY(0deg)';
-                    elCardsContainer[y].style.zIndex = depthDependingOnPosition(y);
+const cardsOnClick = (elCardsContents, elCardsContainers) => {
+    for(let i=0; i<elCardsContents.length; i++) {
+        elCardsContents[i].addEventListener('click', () => {
+            if (elCardsContents[i].style.transform !== 'rotateY(180deg)') {
+                for(let y=0; y<elCardsContents.length; y++) {
+                    elCardsContents[y].style.transform = 'rotateY(0deg)';
+                    elCardsContainers[y].style.zIndex = depthDependingOnPosition(y);
                 }
-                elCardsContent[i].style.transform = 'rotateY(180deg)';
-                elCardsContainer[i].style.zIndex = '250';
+                elCardsContents[i].style.transform = 'rotateY(180deg)';
+                elCardsContainers[i].style.zIndex = '250';
             } else {
-                elCardsContent[i].style.transform = 'rotateY(0deg)';
-                elCardsContainer[i].style.zIndex = depthDependingOnPosition(i);
+                elCardsContents[i].style.transform = 'rotateY(0deg)';
+                elCardsContainers[i].style.zIndex = depthDependingOnPosition(i);
             }
         })
     }
 };
+
+// Parallaxe
+
+const parallaxe = (elCards) => {
+    window.addEventListener('mousemove', ()=> {
+
+        const howFarFromCenterHorizontal = event.clientX - window.innerWidth/2
+
+
+            for (let i=0; i < elCards.length; i++) {
+
+                elCards[i].style.left = cardWitdhInPx * i - (howFarFromCenterHorizontal * (elCards[i].style.zIndex * 0.0001));
+                // elCards[i].style.top = cardWitdhInPx * i - (howFarFromCenterHorizontal * (elCards[i].style.zIndex * 0.0002))
+
+            }
+
+        // if (event.clientX < window.innerWidth/2) {
+        //     console.log('left')
+        // } else {
+        //     console.log('right')
+        // }
+
+        // if (event.clientY < window.innerHeight/2) {
+        //     console.log('top')
+        // } else {
+        //     console.log('bottom')
+        // }
+    })
+}
 
 
 // Usefull
