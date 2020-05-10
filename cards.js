@@ -1,5 +1,6 @@
 // const cards in data.js
 // const cardWitdhInPx in data.js
+let isAnimationEnded = false
 
 window.onload = function(){
     const elBoard = document.getElementById("board");
@@ -14,7 +15,7 @@ window.onload = function(){
     const elCardsContents = document.getElementsByClassName('card');
     cardsOnClick(elCardsContents, elCardsContainers);
 
-    parallaxe(elCardsContainers)
+    parallaxe(elCardsContainers, isAnimationEnded)
 };
 
 const generateElCards = (cards) => cards.reduce((acc, currentCard, i) => `${acc}${card(cards, currentCard, i)}`, "");
@@ -63,6 +64,13 @@ const cardsAppearance = (elCards, randomOrderIndexs, i = 0) => {
 
                 cardsAppearance(elCards, randomOrderIndexs, i + 1);  
         }, randomNumberBetween(100, 300));
+    } else {
+        setTimeout(() => {
+            isAnimationEnded = true;
+            for (let i = 0; i < elCards.length; i++) {
+                elCards[i].style.transitionDuration = '0s';
+            }
+        }, 500)   
     };
 };
 
@@ -89,29 +97,27 @@ const cardsOnClick = (elCardsContents, elCardsContainers) => {
 // Parallaxe
 
 const parallaxe = (elCards) => {
+
+    let count = 0;
+    let iscardVerticalPositionTaken = count >= elCards.length;
+    let verticalPositions = []
+
     window.addEventListener('mousemove', ()=> {
 
         const howFarFromCenterHorizontal = event.clientX - window.innerWidth/2
-
-
+        const howFarFromCenterVertical = event.clientY - window.innerHeight/2
+        if (isAnimationEnded) {
             for (let i=0; i < elCards.length; i++) {
 
-                elCards[i].style.left = cardWitdhInPx * i - (howFarFromCenterHorizontal * (elCards[i].style.zIndex * 0.0001));
-                // elCards[i].style.top = cardWitdhInPx * i - (howFarFromCenterHorizontal * (elCards[i].style.zIndex * 0.0002))
-
+                elCards[i].style.left = cardWitdhInPx * i - (howFarFromCenterHorizontal * (elCards[i].style.zIndex * 0.0002));
+                if (count < elCards.length) {
+                    verticalPositions = [... verticalPositions, parseInt(elCards[i].style.top, 10)]
+                    count ++
+                } else {
+                    elCards[i].style.top = verticalPositions[i] - (howFarFromCenterVertical * (elCards[i].style.zIndex * 0.0002))
+                }
             }
-
-        // if (event.clientX < window.innerWidth/2) {
-        //     console.log('left')
-        // } else {
-        //     console.log('right')
-        // }
-
-        // if (event.clientY < window.innerHeight/2) {
-        //     console.log('top')
-        // } else {
-        //     console.log('bottom')
-        // }
+        }
     })
 }
 
