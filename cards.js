@@ -75,7 +75,7 @@ const cardsOnClick = (elCardsContent, elCardsContainer) => {
                     elCardsContainer[y].style.zIndex = depthDependingOnPosition(y);
                 }
                 elCardsContent[i].style.transform = 'rotateY(180deg)';
-                elCardsContainer[i].style.zIndex = '300';
+                elCardsContainer[i].style.zIndex = '250';
             } else {
                 elCardsContent[i].style.transform = 'rotateY(0deg)';
                 elCardsContainer[i].style.zIndex = depthDependingOnPosition(i);
