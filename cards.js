@@ -8,7 +8,7 @@ window.onload = function(){
 
     const elCardsContainer = document.getElementsByClassName('card-container');
     setTimeout(()=>{
-        cardsAppearance(elCardsContainer);
+        cardsAppearance(elCardsContainer, randomOrderIndexs(elCardsContainer));
     },300)
 
     const elCardsContent = document.getElementsByClassName('card');
@@ -52,13 +52,14 @@ const cardDepth = (indexCard) => `z-index:${depthDependingOnPosition(indexCard)}
 const depthDependingOnPosition = (index) => index%2 === 0 ? 100 : 200;
 
 // Animations
-const cardsAppearance = (elCards, i = 0) => {
+const cardsAppearance = (elCards, randomOrderIndexs, i = 0) => {
+
     if (elCards.length > i) {
         setTimeout(() => {
-            elCards[i].style.top = cardPositionVerticaly(i);
-            elCards[i].style.opacity = 1;
+            elCards[randomOrderIndexs[i]].style.top = cardPositionVerticaly(randomOrderIndexs[i]);
+            elCards[randomOrderIndexs[i]].style.opacity = 1;
 
-                cardsAppearance(elCards, i + 1);  
+                cardsAppearance(elCards, randomOrderIndexs, i + 1);  
         }, randomNumberBetween(100, 300));
     };
 };
@@ -68,7 +69,6 @@ const cardPositionVerticaly = (indexCard) => indexCard%2 === 0 ? randomNumberBet
 const cardsOnClick = (elCardsContent, elCardsContainer) => {
     for(let i=0; i<elCardsContent.length; i++) {
         elCardsContent[i].addEventListener('click', () => {
-
             if (elCardsContent[i].style.transform !== 'rotateY(180deg)') {
                 for(let y=0; y<elCardsContent.length; y++) {
                     elCardsContent[y].style.transform = 'rotateY(0deg)';
@@ -80,7 +80,6 @@ const cardsOnClick = (elCardsContent, elCardsContainer) => {
                 elCardsContent[i].style.transform = 'rotateY(0deg)';
                 elCardsContainer[i].style.zIndex = depthDependingOnPosition(i);
             }
-
         })
     }
 }
@@ -88,3 +87,16 @@ const cardsOnClick = (elCardsContent, elCardsContainer) => {
 
 // Usefull
 const randomNumberBetween = (min, max) => Math.floor(Math.random() * (max-min)+1) + min;
+
+const randomOrderIndexs = (arr) => shuffle([...arr].map((el, i) => i))
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}

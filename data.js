@@ -26,7 +26,14 @@ const cards = [
             "url": "https://www.groovypost.com/wp-content/uploads/2017/12/typing-on-laptop-closeup-computer-keyboard-pc-featured.jpg",
             "alt":"somebody working on his computer"
         }
-    }
-]
+    },
+    // {
+    //     "text": "Camera shooting a mountain",
+    //     "img": {
+    //         "url": "https://www.we-june.com/wp-content/uploads/2019/02/photographie-we-june.jpg",
+    //         "alt":"camera shooting a mountain"
+    //     }
+    // }
+ ]
 
 const cardWitdhInPx = 217;
