@@ -6,13 +6,13 @@ window.onload = function(){
     elBoard.style.width= `${cards.length * cardWitdhInPx}px`
     elBoard.innerHTML = generateElCards(cards);
 
-    const elCards = document.getElementsByClassName('card-container');
+    const elCardsContainer = document.getElementsByClassName('card-container');
     setTimeout(()=>{
-        cardsAppearance(elCards);
+        cardsAppearance(elCardsContainer);
     },300)
 
     const elCardsContent = document.getElementsByClassName('card');
-    cardsOnClick(elCardsContent)
+    cardsOnClick(elCardsContent, elCardsContainer)
 };
 
 const generateElCards = (cards) => cards.reduce((acc, currentCard, i) => `${acc}${card(cards, currentCard, i)}`, "");
@@ -48,8 +48,8 @@ const cardRotation = (cards, indexCard) => {
 
 const cardPositionHorizontaly = (indexCard) => `left:${cardWitdhInPx * indexCard}px`;
 
-const cardDepth = (indexCard) => `z-index:${indexCard%2 === 0 ? 100 : 200}`;
-
+const cardDepth = (indexCard) => `z-index:${depthDependingOnPosition(indexCard)}`;
+const depthDependingOnPosition = (index) => index%2 === 0 ? 100 : 200;
 
 // Animations
 const cardsAppearance = (elCards, i = 0) => {
@@ -63,19 +63,24 @@ const cardsAppearance = (elCards, i = 0) => {
     };
 };
 
-const cardPositionVerticaly = (indexCard) => indexCard%2 === 0 ? randomNumberBetween(60, 120) : randomNumberBetween(0, 10)
+const cardPositionVerticaly = (indexCard) => indexCard%2 === 0 ? randomNumberBetween(60, 120) : randomNumberBetween(0, 10);
 
-const cardsOnClick = (elCards) => {
-    for(let i=0; i<elCards.length; i++) {
-        elCards[i].addEventListener('click', () => {
-            if (elCards[i].style.transform !== 'rotateY(180deg)') {
-                for(let y=0; y<elCards.length; y++) {
-                    elCards[y].style.transform = 'rotateY(0deg)'
+const cardsOnClick = (elCardsContent, elCardsContainer) => {
+    for(let i=0; i<elCardsContent.length; i++) {
+        elCardsContent[i].addEventListener('click', () => {
+
+            if (elCardsContent[i].style.transform !== 'rotateY(180deg)') {
+                for(let y=0; y<elCardsContent.length; y++) {
+                    elCardsContent[y].style.transform = 'rotateY(0deg)';
+                    elCardsContainer[y].style.zIndex = depthDependingOnPosition(y);
                 }
-                elCards[i].style.transform = 'rotateY(180deg)'
+                elCardsContent[i].style.transform = 'rotateY(180deg)';
+                elCardsContainer[i].style.zIndex = '300';
             } else {
-                elCards[i].style.transform = 'rotateY(0deg)'
+                elCardsContent[i].style.transform = 'rotateY(0deg)';
+                elCardsContainer[i].style.zIndex = depthDependingOnPosition(i);
             }
+
         })
     }
 }
