@@ -3,7 +3,7 @@
 
 window.onload = function(){
     const elBoard = document.getElementById("board");
-    elBoard.style.width= `${cards.length * cardWitdhInPx}px`
+    elBoard.style.width= `${cards.length * cardWitdhInPx}px`;
     elBoard.innerHTML = generateElCards(cards);
 
     const elCardsContainer = document.getElementsByClassName('card-container');
@@ -12,7 +12,7 @@ window.onload = function(){
     },300)
 
     const elCardsContent = document.getElementsByClassName('card');
-    cardsOnClick(elCardsContent, elCardsContainer)
+    cardsOnClick(elCardsContent, elCardsContainer);
 };
 
 const generateElCards = (cards) => cards.reduce((acc, currentCard, i) => `${acc}${card(cards, currentCard, i)}`, "");
@@ -82,13 +82,13 @@ const cardsOnClick = (elCardsContent, elCardsContainer) => {
             }
         })
     }
-}
+};
 
 
 // Usefull
 const randomNumberBetween = (min, max) => Math.floor(Math.random() * (max-min)+1) + min;
 
-const randomOrderIndexs = (arr) => shuffle([...arr].map((el, i) => i))
+const randomOrderIndexs = (arr) => shuffle([...arr].map((el, i) => i));
 
 function shuffle(a) {
     var j, x, i;
@@ -99,4 +99,4 @@ function shuffle(a) {
         a[j] = x;
     }
     return a;
-}
+};
