@@ -68,7 +68,7 @@ const cardsAppearance = (elCards, randomOrderIndexs, i = 0) => {
         setTimeout(() => {
             isAnimationEnded = true;
             for (let i = 0; i < elCards.length; i++) {
-                elCards[i].style.transitionDuration = '0s';
+                elCards[i].style.transitionDuration = '0.4s';
             }
         }, 500)   
     };
@@ -94,27 +94,22 @@ const cardsOnClick = (elCardsContents, elCardsContainers) => {
     }
 };
 
-// Parallaxe
-
 const parallaxe = (elCards) => {
 
     let count = 0;
-    let iscardVerticalPositionTaken = count >= elCards.length;
-    let verticalPositions = []
+    let verticalPositions = [];
 
     window.addEventListener('mousemove', ()=> {
-
-        const howFarFromCenterHorizontal = event.clientX - window.innerWidth/2
-        const howFarFromCenterVertical = event.clientY - window.innerHeight/2
+        const howFarFromCenterHorizontal = event.clientX - window.innerWidth/2;
+        const howFarFromCenterVertical = event.clientY - window.innerHeight/2;
         if (isAnimationEnded) {
             for (let i=0; i < elCards.length; i++) {
-
                 elCards[i].style.left = cardWitdhInPx * i - (howFarFromCenterHorizontal * (elCards[i].style.zIndex * 0.0002));
                 if (count < elCards.length) {
-                    verticalPositions = [... verticalPositions, parseInt(elCards[i].style.top, 10)]
+                    verticalPositions = [... verticalPositions, parseInt(elCards[i].style.top, 10)];
                     count ++
                 } else {
-                    elCards[i].style.top = verticalPositions[i] - (howFarFromCenterVertical * (elCards[i].style.zIndex * 0.0002))
+                    elCards[i].style.top = verticalPositions[i] - (howFarFromCenterVertical * (elCards[i].style.zIndex * 0.0002));
                 }
             }
         }

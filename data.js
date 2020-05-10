@@ -27,13 +27,13 @@ const cards = [
             "alt":"somebody working on his computer"
         }
     },
-    {
-        "text": "Camera shooting a mountain",
-        "img": {
-            "url": "https://www.we-june.com/wp-content/uploads/2019/02/photographie-we-june.jpg",
-            "alt":"camera shooting a mountain"
-        }
-    }
+    // {
+    //     "text": "Camera shooting a mountain",
+    //     "img": {
+    //         "url": "https://www.we-june.com/wp-content/uploads/2019/02/photographie-we-june.jpg",
+    //         "alt":"camera shooting a mountain"
+    //     }
+    // }
  ]
 
 const cardWitdhInPx = 217;
