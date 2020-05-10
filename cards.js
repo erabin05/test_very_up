@@ -24,7 +24,14 @@ const card = (cards, currentCard, i) => `
             ${cardBack(currentCard)}
         </section>
     </div>`;
-const cardFront = (currentCard) => `<figure></figure>`;
+
+const cardFront = (currentCard) => (
+    `<figure>
+        <div>
+            <img src="${currentCard.img.url}" alt="${currentCard.img.alt}"/>
+        </div>
+    </figure>`);
+
 const cardBack = (currentCard) => `<article><p>${currentCard.text}</p></article>`;
 
 // Style

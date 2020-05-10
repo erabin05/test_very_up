@@ -76,25 +76,39 @@ main {
     box-shadow: 0px 32px 11px rgba(36, 36, 40, 0.08), 0px 32px 59px rgba(36, 36, 40, 0.2);
 }
 
-.card > figure {
+.card > figure, .card > article {
     position: absolute;
     margin: 0;
-    border-radius: 12px;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
 }
 
 .card > article {
-    position: absolute;
-    margin: 0;
     padding: 20px;
-    border-radius: 12px;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
     transform : rotateY(180deg);
 }
+
+.card > figure  {
+    padding: 12px;   
+}
+
+.card > figure > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.card > figure > div > img {
+    background : grey;
+    height: 100%;
+    
+   
+}
+
 .card > article > p {
     margin : 0;
     display: flex;
