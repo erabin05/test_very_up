@@ -68,7 +68,7 @@ const cardsAppearance = (elCards, randomOrderIndexs, i = 0) => {
         setTimeout(() => {
             isAnimationEnded = true;
             for (let i = 0; i < elCards.length; i++) {
-                elCards[i].style.transitionDuration = '0.4s';
+                elCards[i].style.transitionDuration = '0s';
             }
         }, 500)   
     };
