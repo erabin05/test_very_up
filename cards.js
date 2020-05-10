@@ -13,6 +13,13 @@ window.onload = function(){
 
     const elCardsContent = document.getElementsByClassName('card');
     cardsOnClick(elCardsContent, elCardsContainer);
+
+    window.addEventListener('mousemove', ()=> {
+        console.log(event.clientX)
+        console.log(event.clientY)
+    })
+
+    
 };
 
 const generateElCards = (cards) => cards.reduce((acc, currentCard, i) => `${acc}${card(cards, currentCard, i)}`, "");
